@@ -1,0 +1,31 @@
+<p>
+  <b>Name:</b>
+  <%=h @project.name %>
+</p>
+
+<p>
+  <b>Project notes:</b>
+  <%=h @project.project_notes %>
+</p>
+Project tasks:
+<p>
+<table>
+  <tr>
+    <th>Task name</th>
+    <th>Task description</th>
+    <th></th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+    <td><%=h task.name %></td>
+    <td><%=h task.description %></td>
+    <td><%= link_to 'Show', task %></td>
+
+  </tr>
+  <% end %>
+</table>
+</p>
+
+
+<%= link_to 'Edit project', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

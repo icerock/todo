@@ -1,0 +1,37 @@
+<p>
+  <b>Task name:</b>
+  <%=h @task.task_name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @task.description %>
+</p>
+<p>
+  <b>Billable:</b>
+  <%=h @task.billable %>
+</p>
+
+Task TODO-s:
+<p>
+<table>
+  <tr>
+    <th>Todo title</th>
+    <th>Todo description</th>
+    <th></th>
+  </tr>
+  <% @todos.each do |todok| %>
+    <tr>
+    <td><%=h todo.title %></td>
+    <td><%=h todo.description %></td>
+    <td><%= link_to 'Show', todo %></td>
+
+  </tr>
+  <% end %>
+</table>
+</p>
+
+
+
+<%= link_to 'Edit task', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

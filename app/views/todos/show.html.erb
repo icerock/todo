@@ -1,0 +1,39 @@
+<p>
+  <b>TODO:</b>
+  <%=h @todo.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @todo.description %>
+</p>
+<p>
+  <b>Due time:</b>
+  <%=h @todo.due_time %>
+</p>
+<p>
+  <b>Completed?:</b>
+  <%=h @todo.completed %>
+</p>
+
+Comments to this TODO:
+<br />
+
+<% @comments.each do |comment| %>
+  <p>
+    <%=h comment.title %>
+  </p>
+  <p>
+    <%=h comment.comment_text %>
+  </p>
+  <p>
+    <%= link_to 'New comment', new_comment_path(@todo.id) %>
+  </p>
+
+<% end %>
+
+
+
+
+<%= link_to 'Edit todo', edit_todo_path(@todo) %> |
+<%= link_to 'Back', todos_path %>

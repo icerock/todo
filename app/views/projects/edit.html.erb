@@ -1,0 +1,24 @@
+<h1>Editing Project</h1>
+
+<% form_for(@project) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :project_notes %><br />
+    <%= f.text_area :project_notes %>
+  </p>
+  <p>
+    <%= f.label :user %>
+    <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => true %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @project %> |
+<%= link_to 'Back', projects_path %>

@@ -1,0 +1,20 @@
+<h2>
+  Comment by <%= @user.login %>
+</h2>
+<p>
+  <%=h @comment.title %>
+</p>
+
+<p>
+  <%=h @comment.comment_text %>
+</p>
+
+<p>
+  <b>Password:</b>
+  [secret]
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
