@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #
 
-  map.root :controller => 'projects', :action => 'index'
+  map.root :controller => 'todos', :action => 'index'
 
   map.resources :users do |users|
     users.resources :roles
