@@ -1,5 +1,5 @@
 --- 
-hash: 106292416b015a159cf823398a616867c05c3724
+hash: d4e0f7e1c19417c0f54f4ebe92155cb567e74080
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
@@ -12,10 +12,10 @@ specs:
     version: 2.3.8
 - aiaio-active_resource_throttle: 
     version: 1.0.1
-- aiaio-harvest: 
-    version: 0.8.2
+- harv: 
+    version: 0.8.3
 dependencies: 
-  aiaio-harvest: 
+  harv: 
     version: ">= 0"
     group: 
     - :default

@@ -9,7 +9,7 @@ source 'http://gems.github.com'
 #gem 'happymapper'
 #gem 'harvested'
 #-------------
-gem 'syfo-harvest'
+gem 'harv'
 gem 'aiaio-active_resource_throttle'
 #--------------------
 

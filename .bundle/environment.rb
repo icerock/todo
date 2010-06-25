@@ -174,14 +174,14 @@ end
 module Bundler
   ENV_LOADED   = true
   LOCKED_BY    = '0.9.26'
-  FINGERPRINT  = "106292416b015a159cf823398a616867c05c3724"
+  FINGERPRINT  = "d4e0f7e1c19417c0f54f4ebe92155cb567e74080"
   HOME         = '/home/icerock/.bundle/ruby/1.9.1/bundler'
-  AUTOREQUIRES = {:default=>[["aiaio-active_resource_throttle", false], ["aiaio-harvest", false]]}
+  AUTOREQUIRES = {:default=>[["aiaio-active_resource_throttle", false], ["harv", false]]}
   SPECS        = [
         {:name=>"activesupport", :load_paths=>["/usr/local/lib/ruby/gems/1.9.1/gems/activesupport-2.3.8/lib"], :loaded_from=>"/usr/local/lib/ruby/gems/1.9.1/specifications/activesupport-2.3.8.gemspec"},
         {:name=>"activeresource", :load_paths=>["/usr/local/lib/ruby/gems/1.9.1/gems/activeresource-2.3.8/lib"], :loaded_from=>"/usr/local/lib/ruby/gems/1.9.1/specifications/activeresource-2.3.8.gemspec"},
         {:name=>"aiaio-active_resource_throttle", :load_paths=>["/usr/local/lib/ruby/gems/1.9.1/gems/aiaio-active_resource_throttle-1.0.1/lib"], :loaded_from=>"/usr/local/lib/ruby/gems/1.9.1/specifications/aiaio-active_resource_throttle-1.0.1.gemspec"},
-        {:name=>"aiaio-harvest", :load_paths=>["/usr/local/lib/ruby/gems/1.9.1/gems/aiaio-harvest-0.8.2/lib"], :loaded_from=>"/usr/local/lib/ruby/gems/1.9.1/specifications/aiaio-harvest-0.8.2.gemspec"},
+        {:name=>"harv", :load_paths=>["/usr/local/lib/ruby/gems/1.9.1/gems/harv-0.8.3/lib"], :loaded_from=>"/usr/local/lib/ruby/gems/1.9.1/specifications/harv-0.8.3.gemspec"},
       ].map do |hash|
     if hash[:virtual_spec]
       spec = eval(hash[:virtual_spec], TOPLEVEL_BINDING, "<virtual spec for '#{hash[:name]}'>")
