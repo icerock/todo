@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  before_filter :login_required, :harv_connect
+  before_filter :login_required, :harv_connect, :set_pagetitle
   #before_filter :check_admin_role, :except => [:index, :show]
 
   
