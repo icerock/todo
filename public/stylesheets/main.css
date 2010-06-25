@@ -6,7 +6,7 @@ body {
 }
 
 #header {
-  background: #fff url(/images/h-grad.png) repeat-x;
+  background: #fff ;
   height: 60px;
   margin-top: 10px;
   text-align: left;
