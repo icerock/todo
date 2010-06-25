@@ -18,11 +18,17 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @comments = @todo.comments
     @users = @todo.users
+    harv_connect
     if @todo.task_id.to_i > 0
-      harv_connect
+      
       @task = @harvest.tasks.find(@todo.task_id)
     else
       @task= nil
+    end
+    if @todo.project_id.to_i > 0
+      @project = @harvest.projects.find(@todo.project_id)
+    else
+      @project= nil
     end
 
     respond_to do |format|
@@ -33,6 +39,9 @@ class TodosController < ApplicationController
 
   def new
     @todo = Todo.new
+    harv_connect
+    @normal_tasks = @harvest.tasks.find(:all)
+    @projects = @harvest.projects.find(:all)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,8 +55,11 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.create(params[:todo])
-    @todo.project_id = params[:project_id]                   
-    
+    if params[:project_id]
+    @todo.project_id = params[:project_id]
+    else
+      @todo.project_id = params[:todo][:project_id]
+    end
 
     if @todo.save
       respond_to do |format|

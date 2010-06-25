@@ -15,6 +15,12 @@
   <b>Completed?:</b>
   <%=h @todo.completed %>
 </p>
+<% if @project != nil %>
+  <p>
+    <b>Project:</b>
+    <%=h @project.name %>
+  </p>
+<% end %>
 <% if @task != nil %>
   <p>
     <b>Task:</b>
