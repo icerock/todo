@@ -18,10 +18,39 @@
   <b>Is default:</b>
   <%=h @task.is_default %>
 </p>
+<br />
+<%= link_to 'Edit task', :controller => 'tasks', :action => 'edit', :id => @task.id  %> |
+<%= link_to 'Back to task list', tasks_path %>
+
+<br />
+
+<h2>TODOs for the Task:</h2>
+
+<table>
+  <tr>
+    <th>Todo title</th>
+    <th>Description</th>
+    <th>Due time</th>
+    <th>Completed</th>
+
+  </tr>
+
+<% @todos.each do |todo| %>
+  <tr>
+    <td><%=h todo.title %></td>
+    <td><%=h todo.description %></td>
+    <td><%=h todo.due_time %></td>
+    <td><%=h todo.completed %></td>
+
+    <td><%= link_to 'Show', todo %></td>
+    <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+    <td><%= link_to 'Destroy', todo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
 
 
 
 
 
-<%= link_to 'Edit', :controller => 'tasks', :action => 'edit', :id => @task.id  %> |
-<%= link_to 'Back', tasks_path %>
+

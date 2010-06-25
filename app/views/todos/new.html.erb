@@ -22,7 +22,7 @@
   <p>
     Assined to: <br />
     
-    <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => false %>
+    <%= f.collection_select :user_id, User.find(:all, :order => 'login'), :id, :login, {} %>
   </p>
   <p>
     <%= f.submit 'Create' %>
@@ -30,4 +30,4 @@
   
 <% end %>
 
-<%= link_to 'Back', todos_path %>
+<%= link_to 'Back', project_todo_url %>

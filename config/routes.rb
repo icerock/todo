@@ -12,20 +12,29 @@ ActionController::Routing::Routes.draw do |map|
 
   #
 
-  map.root :controller => 'todos', :action => 'index'
+  map.root :controller => 'projects', :action => 'index'
 
   map.resources :users do |users|
     users.resources :roles
   end
 
-  map.resources :projects
+  map.resources :projects do |project|
+   project.resources :tasks
+  end
 
-  map.resources :tasks
+  map.resources :tasks do |task|
+    task.resources :todos
+  end
 
-    map.resources :todos do |todo|
-      todo.resources :comments
-    end
+  map.resources :projects do |project|
+    project.resources :todos 
+      
+    
+  end
 
+  map.resources :todos do |todo|
+    todo.resources :comments
+  end
   
   
 

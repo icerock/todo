@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
   def show
     @task = @harvest.tasks.find(params[:id])
-    #@todos = @task.todos
+    @todos = Todo.find_all_by_task_id(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @task.to_xml }

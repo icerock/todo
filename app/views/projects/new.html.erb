@@ -1,6 +1,7 @@
 <h1>New Project</h1>
-Please note: features 'client', 'bill by', 'fees', 'budget-by' are not working!
-PLEASE DO NOT CREATE PROJECTS FROM THIS FORM TILL CLIENTS CONTROLLER IS READY
+<br />
+PLEASE NOTE: features 'bill by', 'budget-by' must NOT be edited!
+
 
 <% form_for @project, :url => { :action => "create" } do |f| %>
   <%= f.error_messages %>
@@ -19,7 +20,7 @@ PLEASE DO NOT CREATE PROJECTS FROM THIS FORM TILL CLIENTS CONTROLLER IS READY
 </p>
 <p>
   <%= f.label :bill_by %><br />
-  <%= f.text_field :bill_by %>
+  <%= f.text_field :bill_by, :value => 'none' %>
 </p>
 <p>
   <%= f.label :hourly_rate %><br />
@@ -27,7 +28,7 @@ PLEASE DO NOT CREATE PROJECTS FROM THIS FORM TILL CLIENTS CONTROLLER IS READY
 </p>
 <p>
   <%= f.label :client_id %><br />
-  <%= f.text_field :client_id %>
+  <%= f.collection_select :client_id, @harvest.clients.find(:all), :id, :name, {}%>
 
 </p>
 <p>
@@ -40,7 +41,7 @@ PLEASE DO NOT CREATE PROJECTS FROM THIS FORM TILL CLIENTS CONTROLLER IS READY
 </p>
 <p>
   <%= f.label :budget_by %><br />
-  <%= f.text_field :budget_by %>
+  <%= f.text_field :budget_by, :value => 'none' %>
 </p>
 <p>
   <%= f.label :budget %><br />

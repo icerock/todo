@@ -39,7 +39,106 @@
   <%=h @project.fees %>
 </p>
 
-
-
+<br />
 <%= link_to 'Edit', :controller => 'projects', :action => 'edit', :id => @project.id  %> |
 <%= link_to 'Back', projects_path %>
+
+
+<h2>Tasks for the Project:</h2>
+
+<table>
+  <tr>
+    <th>Task name</th>
+    <th>Billable</th>
+    <th>Budget</th>
+    <th>Deactivated</th>
+    <th>Hourly rate</th>
+    <th>Estimate</th>
+  </tr>
+
+<% @tasks.each do |task| %>
+  <tr>
+    <td></td>
+    <td><%=h task.billable %></td>
+    <td><%=h task.budget %></td>
+    <td><%=h task.deactivated %></td>
+    <td><%=h task.hourly_rate %></td>
+    <td><%=h task.estimate %></td>
+    <td><%= link_to 'Show',:controller => 'tasks', :action => 'show', :id => task %></td>
+    <td><%= link_to 'Edit', :controller => 'tasks', :action => 'edit', :id => task  %></td>
+    <td><%= link_to 'Destroy',  {:controller => 'tasks', :action => 'destroy',:id => task}, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Task', :controller => 'tasks', :action => 'new' %>
+
+<h2>TODOs for the Project:</h2>
+
+<table>
+  <tr>
+    <th>Todo title</th>
+    <th>Description</th>
+    <th>Due time</th>
+    <th>Completed</th>
+    
+  </tr>
+
+<% @todos.each do |todo| %>
+    
+  <tr>
+    <td><%=h todo.title %></td>
+    <td><%=h todo.description %></td>
+    <td><%=h todo.due_time %></td>
+    <td><%=h todo.completed %></td>
+    <td><%= link_to 'Show', todo %></td>
+    <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+    <td><%= link_to 'Destroy', todo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<h3>Create a New TODO</h3>
+
+<% form_for:todo, :url => project_todos_path(:project_id => @project) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :due_time %><br />
+    <%= f.datetime_select :due_time %>
+  </p>
+  <p>
+    <%= f.label :completed %>
+    <%= f.check_box :completed %>
+  </p>
+  <p>
+    Task: <br />
+
+    <%= f.collection_select :task_id, @normal_tasks, :id, :name%>
+  </p>
+  
+  <p>
+    Assined to: <br />
+
+    <%= f.collection_select :user_id, User.find(:all, :order => 'login'), :id, :login, {} %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+
+<% end %>
+
+
+
+
+

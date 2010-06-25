@@ -7,7 +7,7 @@ class TodosController < ApplicationController
   end
 
   def index
-    @todos = Todo.find(:all)
+    @todos = Todo.find(:all, :order => :task_id)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @todos }
@@ -18,6 +18,12 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @comments = @todo.comments
     @users = @todo.users
+    if @todo.task_id.to_i > 0
+      harv_connect
+      @task = @harvest.tasks.find(@todo.task_id)
+    else
+      @task= nil
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,15 +45,20 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(params[:todo])
+    @todo = Todo.create(params[:todo])
+    @todo.project_id = params[:project_id]                   
+    
 
-    respond_to do |format|
-      if @todo.save
-        format.html { redirect_to(@todo, :notice => 'TODO was successfully created.') }
-        format.xml  { render :xml => @todo, :status => :created, :location => @todo }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @todo.errors, :status => :unprocessable_entity }
+    if @todo.save
+      respond_to do |format|
+        format.html { redirect_to todos_path }
+        format.xml  { render :xml => @todo.to_xml}
+      end
+    else
+      flash[:error] = "Error creating TODO"
+      respond_to do |format|
+        format.html { redirect_to todos_url}
+        format.xml  { render :xml => @todo.to_xml }
       end
     end
   end

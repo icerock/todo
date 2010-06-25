@@ -36,7 +36,8 @@ class CommentsController < ApplicationController
   
   def create
     @todo = Todo.find(params[:todo_id])
-    @comment = Comment.create(:user_id => current_user.id, :comment_text => params[:comment][:comment_text])
+    @comment = Comment.create(:user_id => current_user.id,
+                               :comment_text => params[:comment][:comment_text])
     if @todo.comments << @comment
       flash[:notice] = "Comment created"
       respond_to do |format|

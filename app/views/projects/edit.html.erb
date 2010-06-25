@@ -1,8 +1,11 @@
 <h1>Editing Project</h1>
-Please note: features 'client', 'bill by', 'code', 'budget-by' are not working!
+<br />
+PLEASE NOTE: features 'bill by', 'budget-by' must NOT be edited!
 
 <% form_for @project, :url => { :action => "update" } do |f| %>
   <%= f.error_messages %>
+
+
 
  <p>
   <%= f.label :name %><br />
@@ -26,7 +29,7 @@ Please note: features 'client', 'bill by', 'code', 'budget-by' are not working!
 </p>
 <p>
   <%= f.label :client_id %><br />
-  <%= f.text_field :client_id %>
+  <%= f.collection_select :client_id, @harvest.clients.find(:all), :id, :name, {}%>
 </p>
 <p>
   <%= f.label :code %><br />

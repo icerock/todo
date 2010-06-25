@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100624193013) do
+ActiveRecord::Schema.define(:version => 20100625150225) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -22,15 +22,15 @@ ActiveRecord::Schema.define(:version => 20100624193013) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
-    t.boolean  "active",      :default => false
-    t.boolean  "billable",    :default => false
+    t.boolean  "active",                                                   :default => false
+    t.boolean  "billable",                                                 :default => false
     t.integer  "bill_by"
-    t.decimal  "hourly_rate"
+    t.integer  "hourly_rate", :limit => 10, :precision => 10, :scale => 0
     t.integer  "client_id"
     t.string   "code"
     t.text     "notes"
     t.integer  "budget_by"
-    t.decimal  "budget"
+    t.integer  "budget",      :limit => 10, :precision => 10, :scale => 0
     t.string   "fees"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -39,10 +39,10 @@ ActiveRecord::Schema.define(:version => 20100624193013) do
   create_table "tasks", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
-    t.boolean  "billable_by_default", :default => false
-    t.boolean  "deactivated",         :default => false
-    t.decimal  "default_hourly_rate"
-    t.boolean  "is_default",          :default => false
+    t.boolean  "billable_by_default",                                              :default => false
+    t.boolean  "deactivated",                                                      :default => false
+    t.integer  "default_hourly_rate", :limit => 10, :precision => 10, :scale => 0
+    t.boolean  "is_default",                                                       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20100624193013) do
     t.boolean  "completed",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
 
   create_table "todos_users", :id => false, :force => true do |t|

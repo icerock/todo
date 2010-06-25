@@ -19,7 +19,14 @@ class ProjectsController < ApplicationController
 
   def show
     @project = @harvest.projects.find(params[:id])
-    #@todos = @task.todos
+    @tasks = @project.tasks.find(:all)
+    @tasks.each do |t|
+      @task = @harvest.tasks.find(t.task_id)
+      t.name = @task.name
+    end
+    @normal_tasks = @harvest.tasks.find(:all)
+    @todos = Todo.find_all_by_project_id(@project.id)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @project.to_xml }
@@ -28,17 +35,20 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @clients = @harvest.clients.find(:all)
 
   end
 
   def edit
     @project = @harvest.projects.find(params[:id])
-    #@clients = @harvest.clients.find(:all)
+    @clients = @harvest.clients.find(:all)
+
   end
 
   def create
     @project = @harvest.projects.new
     #@clients = @harvest.clients.find(:all)
+    
     @project.attributes = {:name => params[:project][:name],
                            :active => params[:project][:active],
                            :billable => params[:project][:billable],
@@ -55,7 +65,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         flash[:notice] = 'Project was successfully created.'
-        format.html { render :action => "show" }
+        format.html { redirect_to '/projects' }
         format.xml  { render :xml => @project, :status => :created }
       else
         flash[:error] = 'Error creating project.'
@@ -67,25 +77,24 @@ class ProjectsController < ApplicationController
 
   def update
     @project = @harvest.projects.find(params[:id])
-    #@project = params[:harvest_resources_project].to_array
-    @project.attributes = {:name => params[:project][:name],
-                           :active => params[:project][:active],
-                           :billable => params[:project][:billable],
-                           
-                           :hourly_rate => params[:project][:hourly_rate],
-                           
-                           :code => params[:project][:code],
-                           :notes => params[:project][:notes],
-                           
-                           :budget => params[:project][:budget],
-                           
-                          }
     
+    @project.name = params[:harvest_resources_project][:name]
+    @project.active = params[:harvest_resources_project][:active]
+    @project.billable = params[:harvest_resources_project][:billable]
+    @project.bill_by = params[:harvest_resources_project][:bill_by]
+    @project.hourly_rate = params[:harvest_resources_project][:hourly_rate]
+    @project.client_id = params[:harvest_resources_project][:client_id]
+    @project.code = params[:harvest_resources_project][:code]
+    @project.notes = params[:harvest_resources_project][:notes]
+    @project.budget_by = params[:harvest_resources_project][:budget_by]
+    @project.budget = params[:harvest_resources_project][:budget]
+    @project.fees = params[:harvest_resources_project][:fees]
+                           
 
     respond_to do |format|
       if @project.save
         flash[:notice] = 'Project was successfully updated.'
-        format.html { render :action => "show"}
+        format.html { redirect_to '/projects'}
         format.xml  { head :ok }
       else
         flash[:error] = 'Error updating project.'
@@ -102,6 +111,21 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to projects_url}
       format.xml  { render :nothing => true }
+    end
+  end
+
+  def activate
+    @project = @harvest.projects.find(params[:id])
+    respond_to do |format|
+      if @project.toggle
+        flash[:notice] = 'Project was successfully activated.'
+        format.html { redirect_to '/projects'}
+        format.xml  { head :ok }
+      else
+        flash[:error] = 'Error activating project.'
+        format.html { redirect_to '/projects' }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
