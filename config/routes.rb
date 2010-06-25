@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   #
+  map.my '/my', :controller => 'todos', :action => 'my'
 
   map.root :controller => 'projects', :action => 'index'
 
@@ -22,9 +23,7 @@ ActionController::Routing::Routes.draw do |map|
    project.resources :tasks
   end
 
-  map.resources :tasks do |task|
-    task.resources :todos
-  end
+  map.resources :tasks 
 
   map.resources :projects do |project|
     project.resources :todos 

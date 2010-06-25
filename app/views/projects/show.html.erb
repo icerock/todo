@@ -130,7 +130,7 @@
   <p>
     Assined to: <br />
 
-    <%= f.collection_select :user_id, User.find(:all, :order => 'login'), :id, :login, {} %>
+    <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => true %>
   </p>
   <p>
     <%= f.submit 'Create' %>

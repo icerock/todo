@@ -60,7 +60,7 @@ class TodosController < ApplicationController
     else
       @todo.project_id = params[:todo][:project_id]
     end
-
+    
     if @todo.save
       respond_to do |format|
         format.html { redirect_to todos_path }
@@ -97,6 +97,17 @@ class TodosController < ApplicationController
       format.html { redirect_to(todos_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def my
+    @user = User.find(current_user.id)
+    @todos = @user.todos
+      respond_to do |format|
+        flash[:notice] = 'Grab your TODOs and get to work! :)'
+        format.html { render @todos, :template => '/todos/index', :layout => true  }
+        format.xml  { render :xml => @todos.to_xml}
+      end
+
   end
 
 end
