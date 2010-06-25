@@ -22,32 +22,27 @@ ActiveRecord::Schema.define(:version => 20100624193013) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
-    t.boolean  "active",                                                   :default => false
-    t.boolean  "billable",                                                 :default => false
+    t.boolean  "active",      :default => false
+    t.boolean  "billable",    :default => false
     t.integer  "bill_by"
-    t.integer  "hourly_rate", :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "hourly_rate"
     t.integer  "client_id"
     t.string   "code"
     t.text     "notes"
     t.integer  "budget_by"
-    t.integer  "budget",      :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "budget"
     t.string   "fees"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "projects_tasks", :id => false, :force => true do |t|
-    t.integer "project_id", :null => false
-    t.integer "task_id",    :null => false
-  end
-
   create_table "tasks", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
-    t.boolean  "billable_by_default",                                              :default => false
-    t.boolean  "deactivated",                                                      :default => false
-    t.integer  "default_hourly_rate", :limit => 10, :precision => 10, :scale => 0
-    t.boolean  "is_default",                                                       :default => false
+    t.boolean  "billable_by_default", :default => false
+    t.boolean  "deactivated",         :default => false
+    t.decimal  "default_hourly_rate"
+    t.boolean  "is_default",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
