@@ -1,27 +1,27 @@
-<h1>New todo</h1>
+<h1>New Task</h1>
 
-<% form_for(@todo) do |f| %>
+<% form_for @task, :url => { :action => "create" } do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :billable_by_default %><br />
+    <%= f.check_box :billable_by_default %>
   </p>
   <p>
-    <%= f.label :due_time %><br />
-    <%= f.select_date Date.today, :prefix => :due_time %>
+    <%= f.label :deactivated %><br />
+    <%= f.check_box :deactivated %>
   </p>
   <p>
-    <%= f.label :completed %><br />
-    <%= f.check_box :completed %>
+    <%= f.label :default_hourly_rate %><br />
+    <%= f.text_field :default_hourly_rate %>
   </p>
   <p>
-    <%= f.label :project %>
-    <%= f.collection_select :project_ids, Project.find(:all, :order => 'name'), :id, :name, {}, :multiple => false %>
+    <%= f.label :is_default %><br />
+    <%= f.check_box :is_default %>
   </p>
  
   <p>
@@ -29,4 +29,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', todos_path %>
+<%= link_to 'Back', tasks_path %>

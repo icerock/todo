@@ -13,23 +13,21 @@
   </p>
   <p>
     <%= f.label :due_time %><br />
-    <%= f.select_date Date.today, :prefix => :due_time %>
+    <%= f.datetime_select :due_time %>
   </p>
   <p>
-    <%= f.label :completed %><br />
+    <%= f.label :completed %>
     <%= f.check_box :completed %>
   </p>
   <p>
-    <%= f.label :task %>
-    <%= f.collection_select :task_ids, Task.find(:all, :order => 'task_name'), :id, :task_name, {}, :multiple => false %>
-  </p>
-  <p>
-    <%= f.label :user %>
+    Assined to: <br />
+
     <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => false %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
+
 <% end %>
 
 <%= link_to 'Show', @todo %> |

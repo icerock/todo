@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100623170816) do
+ActiveRecord::Schema.define(:version => 20100624193013) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -22,7 +22,16 @@ ActiveRecord::Schema.define(:version => 20100623170816) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
-    t.text     "project_notes"
+    t.boolean  "active",                                                   :default => false
+    t.boolean  "billable",                                                 :default => false
+    t.integer  "bill_by"
+    t.integer  "hourly_rate", :limit => 10, :precision => 10, :scale => 0
+    t.integer  "client_id"
+    t.string   "code"
+    t.text     "notes"
+    t.integer  "budget_by"
+    t.integer  "budget",      :limit => 10, :precision => 10, :scale => 0
+    t.string   "fees"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,27 +41,13 @@ ActiveRecord::Schema.define(:version => 20100623170816) do
     t.integer "task_id",    :null => false
   end
 
-  create_table "projects_users", :id => false, :force => true do |t|
-    t.integer "project_id", :null => false
-    t.integer "user_id",    :null => false
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id", :null => false
-    t.integer "user_id", :null => false
-  end
-
   create_table "tasks", :force => true do |t|
-    t.string   "task_name"
-    t.text     "description"
+    t.string   "name"
     t.integer  "project_id"
-    t.boolean  "billable",    :default => false
+    t.boolean  "billable_by_default",                                              :default => false
+    t.boolean  "deactivated",                                                      :default => false
+    t.integer  "default_hourly_rate", :limit => 10, :precision => 10, :scale => 0
+    t.boolean  "is_default",                                                       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

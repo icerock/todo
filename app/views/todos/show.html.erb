@@ -15,22 +15,37 @@
   <b>Completed?:</b>
   <%=h @todo.completed %>
 </p>
-
-Comments to this TODO:
-<br />
-
-<% @comments.each do |comment| %>
+<p>
+  <b>Users assigned:</b>
+  <% @users.each do |user| %>
   <p>
-    <%=h comment.title %>
-  </p>
-  <p>
-    <%=h comment.comment_text %>
-  </p>
-  <p>
-    <%= link_to 'New comment', new_comment_path(@todo.id) %>
+    <%=h user.login %>
   </p>
 
 <% end %>
+</p>
+
+
+<br />
+<% @comments.each do |comment| %>
+<p>
+    At <%= comment.created_at.to_s(:short) %>,
+     <%= comment.user.login %> said: <br />
+   </p>
+   <p>
+    <%=h comment.comment_text %>
+  </p>
+<% end %>
+
+  <h3>Leave a comment to this TODO</h3>
+  <%= error_messages_for :comment %>
+  <% form_for :comment, :url => todo_comments_path(:todo_id => @todo) do |f| %>
+  <p><%= f.text_area :comment_text, :rows => 4, :cols => 40 %> </p>
+  <p>
+    <%= f.submit 'Comment' %>
+  </p>
+<% end %>
+
 
 
 

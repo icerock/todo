@@ -25,6 +25,8 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :todos do |todo|
       todo.resources :comments
     end
+
+  
   
 
   # The priority is based upon order of creation: first created -> highest priority.

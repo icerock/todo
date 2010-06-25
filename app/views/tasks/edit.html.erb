@@ -1,28 +1,33 @@
 <h1>Editing task</h1>
 
-<% form_for(@task) do |f| %>
+<% form_for @task, :url => { :action => "update" } do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :task_name %><br />
-    <%= f.text_field :task_name %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :billable_by_default %><br />
+    <%= f.check_box :billable_by_default %>
   </p>
   <p>
-    <%= f.label :billable %><br />
-    <%= f.check_box :billable %>
+    <%= f.label :deactivated %><br />
+    <%= f.check_box :deactivated %>
   </p>
   <p>
-    <%= f.label :project %>
-    <%= f.collection_select :project_ids, Project.find(:all, :order => 'name'), :id, :name, {}, :multiple => false %>
+    <%= f.label :default_hourly_rate %><br />
+    <%= f.text_field :default_hourly_rate %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.label :is_default %><br />
+    <%= f.check_box :is_default %>
+  </p>
+
+  <p>
+    <%= f.submit 'Save' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @task %> |
+<%= link_to 'Show',:controller => 'tasks', :action => 'show', :id => @task.id %> |
 <%= link_to 'Back', tasks_path %>

@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
-  has_and_belongs_to_many :roles
-  has_and_belongs_to_many :projects
+  #has_and_belongs_to_many :roles
+  #has_and_belongs_to_many :projects
   has_and_belongs_to_many :todos
   has_many :comments
 

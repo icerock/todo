@@ -1,24 +1,57 @@
 <h1>Editing Project</h1>
+Please note: features 'client', 'bill by', 'code', 'budget-by' are not working!
 
-<% form_for(@project) do |f| %>
+<% form_for @project, :url => { :action => "update" } do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :project_notes %><br />
-    <%= f.text_area :project_notes %>
-  </p>
-  <p>
-    <%= f.label :user %>
-    <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => true %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+ <p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :active %><br />
+  <%= f.check_box :active %>
+</p>
+<p>
+  <%= f.label :billable %><br />
+  <%= f.check_box :billable %>
+</p>
+<p>
+  <%= f.label :bill_by %><br />
+  <%= f.text_field :bill_by %>
+</p>
+<p>
+  <%= f.label :hourly_rate %><br />
+  <%= f.text_field :hourly_rate %>
+</p>
+<p>
+  <%= f.label :client_id %><br />
+  <%= f.text_field :client_id %>
+</p>
+<p>
+  <%= f.label :code %><br />
+  <%= f.text_field :code %>
+</p>
+<p>
+  <%= f.label :notes %><br />
+  <%= f.text_area :notes %>
+</p>
+<p>
+  <%= f.label :budget_by %><br />
+  <%= f.text_field :budget_by %>
+</p>
+<p>
+  <%= f.label :budget %><br />
+  <%= f.text_field :budget %>
+</p>
+<p>
+  <%= f.label :fees %><br />
+  <%= f.text_field :fees %>
+</p>
+
+<%= f.submit 'Update' %>
+  
 <% end %>
 
-<%= link_to 'Show', @project %> |
+<%= link_to 'Show', :controller => 'projects', :action => 'show', :id => @project.id %> |
 <%= link_to 'Back', projects_path %>

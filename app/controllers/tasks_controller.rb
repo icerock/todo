@@ -1,50 +1,63 @@
 class TasksController < ApplicationController
 
-  before_filter :login_required
-  before_filter :check_admin_role, :except => [:index, :show]
+  before_filter :login_required, :harv_connect
+  #before_filter :check_admin_role, :except => [:index, :show]
+
+  #HARVESTER OF SORROW :)
+
+  require "harvest.rb"
+
+  def harv_connect
+    @harvest = Harvest(:email      => "anthony.icerock@gmail.com",
+                       :password   => "Ice6667",
+                       :sub_domain => "bambu4a",
+                       :headers    => {"User-Agent" => "todo app"})
+
+  end
 
   def index
-    @tasks = Task.find(:all)
-    
+    @tasks = @harvest.tasks.find(:all)
+ 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tasks.to_xml }
     end
   end
 
-  # GET /articles/1
-  # GET /articles/1.xml
   def show
-    @task = Task.find(params[:id])
-    @todos = @task.todos
+    @task = @harvest.tasks.find(params[:id])
+    #@todos = @task.todos
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @task.to_xml }
     end
   end
 
-  # GET /articles/new
-  # GET /articles/new.xml
   def new
     @task = Task.new
 
   end
 
-  # GET /articles/1/edit
   def edit
-    @task = Task.find(params[:id])
+    @task = @harvest.tasks.find(params[:id])
   end
 
-  # POST /articles
-  # POST /articles.xml
   def create
-    @task = Task.new(params[:task])
+    @task = @harvest.tasks.new
+
+    @task.name = params[:task][:name]
+    @task.billable_by_default = params[:task][:billable_by_default]
+    @task.deactivated = params[:task][:deactivated]
+    @task.default_hourly_rate = params[:task][:default_hourly_rate]
+    @task.is_default = params[:task][:is_default]
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to(@task, :notice => 'Project was successfully created.') }
-        format.xml  { render :xml => @task, :status => :created, :location => @task }
+        flash[:error] = 'Task was successfully created.'
+        format.html { render :action => "show" }
+        format.xml  { render :xml => @task, :status => :created }
       else
+        flash[:error] = 'Error creating task.'
         format.html { render :action => "new" }
         format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
       end
@@ -52,23 +65,29 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = @harvest.tasks.find(params[:id])
+    #@task = params[:harvest_resources_task]
+    @task.name = params[:harvest_resources_task][:name]
+    @task.billable_by_default = params[:harvest_resources_task][:billable_by_default]
+    @task.deactivated = params[:harvest_resources_task][:deactivated]
+    @task.default_hourly_rate = params[:harvest_resources_task][:default_hourly_rate]
+    @task.is_default = params[:harvest_resources_task][:is_default]
 
     respond_to do |format|
-      if @task.update_attributes(params[:task])
-        format.html { redirect_to(@task, :notice => 'Project was successfully updated.') }
+      if @task.save
+        flash[:notice] = 'Task was successfully updated.'
+        format.html { render :action => "show"}
         format.xml  { head :ok }
       else
+        flash[:error] = 'Error updating task.'
         format.html { render :action => "edit" }
         format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /articles/1
-  # DELETE /articles/1.xml
   def destroy
-    @task = Task.find(params[:id])
+    @task = @harvest.tasks.find(params[:id])
     @task.destroy
 
     respond_to do |format|
@@ -76,6 +95,5 @@ class TasksController < ApplicationController
       format.xml  { render :nothing => true }
     end
   end
-
 
 end

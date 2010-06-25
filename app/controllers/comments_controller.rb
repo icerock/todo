@@ -12,8 +12,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /articles/1
-  # GET /articles/1.xml
+  
   def show
     @comment = Comment.find(params[:id])
     @user = User.find(@comment.user_id)
@@ -23,8 +22,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /articles/new
-  # GET /articles/new.xml
+  
   def new
     @comment = Comment.new
 
@@ -35,22 +33,26 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  # POST /articles
-  # POST /articles.xml
+  
   def create
     @todo = Todo.find(params[:todo_id])
-    @comment = Comment.create(params[:comment])
-    @todo.comments << @comment
-
-    respond_to do |format|
-      format.html { redirect_to todo_comments_url}
-      format.xml  { render :xml => @comment.to_xml }
-
+    @comment = Comment.create(:user_id => current_user.id, :comment_text => params[:comment][:comment_text])
+    if @todo.comments << @comment
+      flash[:notice] = "Comment created"
+      respond_to do |format|
+        format.html { redirect_to @todo}
+        format.xml  { render :xml => @comment.to_xml }
+      end
+    else
+      flash[:error] = "Error creating comment"
+      respond_to do |format|
+        format.html { redirect_to @todo}
+        format.xml  { render :xml => @comment.to_xml }
+      end
     end
   end
 
-  # PUT /articles/1
-  # PUT /articles/1.xml
+  
   def update
     @comment = Comment.find(params[:id])
 
@@ -62,8 +64,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /articles/1
-  # DELETE /articles/1.xml
+  
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy

@@ -1,37 +1,27 @@
 <p>
   <b>Task name:</b>
-  <%=h @task.task_name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%=h @task.description %>
+  <%=h @task.name %>
 </p>
 <p>
   <b>Billable:</b>
-  <%=h @task.billable %>
+  <%=h @task.billable_by_default %>
 </p>
-
-Task TODO-s:
 <p>
-<table>
-  <tr>
-    <th>Todo title</th>
-    <th>Todo description</th>
-    <th></th>
-  </tr>
-  <% @todos.each do |todok| %>
-    <tr>
-    <td><%=h todo.title %></td>
-    <td><%=h todo.description %></td>
-    <td><%= link_to 'Show', todo %></td>
-
-  </tr>
-  <% end %>
-</table>
+  <b>Deactivated:</b>
+  <%=h @task.deactivated %>
+</p>
+<p>
+  <b>Default hourly rate:</b>
+  <%=h @task.default_hourly_rate %>
+</p>
+<p>
+  <b>Is default:</b>
+  <%=h @task.is_default %>
 </p>
 
 
 
-<%= link_to 'Edit task', edit_task_path(@task) %> |
+
+
+<%= link_to 'Edit', :controller => 'tasks', :action => 'edit', :id => @task.id  %> |
 <%= link_to 'Back', tasks_path %>

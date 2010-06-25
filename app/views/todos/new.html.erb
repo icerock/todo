@@ -1,26 +1,27 @@
-<h1>New task</h1>
+<h1>New TODO</h1>
 
-<% form_for(@task) do |f| %>
+<% form_for(@todo) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :task_name %><br />
-    <%= f.text_field :task_name %>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
   </p>
   <p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
   <p>
-    <%= f.label :billable %><br />
-    <%= f.check_box :billable %>
+    <%= f.label :due_time %><br />
+    <%= f.datetime_select :due_time %>
   </p>
   <p>
-    <%= f.label :task %>
-    <%= f.collection_select :task_ids, Task.find(:all, :order => 'task_name'), :id, :task_name, {}, :multiple => false %>
+    <%= f.label :completed %>
+    <%= f.check_box :completed %>
   </p>
   <p>
-    <%= f.label :user %>
+    Assined to: <br />
+    
     <%= f.collection_select :user_ids, User.find(:all, :order => 'login'), :id, :login, {}, :multiple => false %>
   </p>
   <p>
@@ -29,4 +30,4 @@
   
 <% end %>
 
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Back', todos_path %>

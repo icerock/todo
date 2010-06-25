@@ -1,48 +1,71 @@
 class ProjectsController < ApplicationController
 
-  before_filter :login_required
+  before_filter :login_required, :harv_connect
+  #before_filter :check_admin_role, :except => [:index, :show]
 
-  #before_filter :check_admin_role, :except => [:show]
+  #HARVESTER OF SORROW :)
+
+  require "harvest.rb"
+
+  def harv_connect
+    @harvest = Harvest(:email      => "anthony.icerock@gmail.com",
+                       :password   => "Ice6667",
+                       :sub_domain => "bambu4a",
+                       :headers    => {"User-Agent" => "todo app"})
+
+  end
 
   def index
-    @projects = Project.find(:all)
+    @projects = @harvest.projects.find(:all)
+
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @projects }
+      format.xml  { render :xml => @projects.to_xml }
     end
   end
 
   def show
-    @project = Project.find(params[:id])
-    @tasks = @project.tasks
-
+    @project = @harvest.projects.find(params[:id])
+    #@todos = @task.todos
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @project }
+      format.xml  { render :xml => @project.to_xml }
     end
   end
 
   def new
     @project = Project.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project }
-    end
   end
 
   def edit
-    @project = Project.find(params[:id])
+    @project = @harvest.projects.find(params[:id])
+    #@clients = @harvest.clients.find(:all)
   end
 
   def create
-    @project = Project.new(params[:project])
+    @project = @harvest.projects.new
+    #@clients = @harvest.clients.find(:all)
+    @project.attributes = {:name => params[:project][:name],
+                           :active => params[:project][:active],
+                           :billable => params[:project][:billable],
+                           :bill_by => params[:project][:bill_by],
+                           :hourly_rate => params[:project][:hourly_rate],
+                           :client_id => params[:project][:client_id],
+                           :code => params[:project][:code],
+                           :notes => params[:project][:notes],
+                           :budget_by => params[:project][:budget_by],
+                           :budget => params[:project][:budget],
+                           :fees => params[:project][:fees]
+                          }
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
-        format.xml  { render :xml => @project, :status => :created, :location => @project }
+        flash[:notice] = 'Project was successfully created.'
+        format.html { render :action => "show" }
+        format.xml  { render :xml => @project, :status => :created }
       else
+        flash[:error] = 'Error creating project.'
         format.html { render :action => "new" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -50,13 +73,29 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = @harvest.projects.find(params[:id])
+    #@project = params[:harvest_resources_project].to_array
+    @project.attributes = {:name => params[:project][:name],
+                           :active => params[:project][:active],
+                           :billable => params[:project][:billable],
+                           
+                           :hourly_rate => params[:project][:hourly_rate],
+                           
+                           :code => params[:project][:code],
+                           :notes => params[:project][:notes],
+                           
+                           :budget => params[:project][:budget],
+                           
+                          }
+    
 
     respond_to do |format|
-      if @project.update_attributes(params[:project])
-        format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
+      if @project.save
+        flash[:notice] = 'Project was successfully updated.'
+        format.html { render :action => "show"}
         format.xml  { head :ok }
       else
+        flash[:error] = 'Error updating project.'
         format.html { render :action => "edit" }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
@@ -64,14 +103,13 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
+    @project = @harvest.projects.find(params[:id])
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to(projects_url) }
-      format.xml  { head :ok }
+      format.html { redirect_to projects_url}
+      format.xml  { render :nothing => true }
     end
   end
+
 end
-
-

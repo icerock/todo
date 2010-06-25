@@ -13,6 +13,7 @@ class TodosController < ApplicationController
   def show
     @todo = Todo.find(params[:id])
     @comments = @todo.comments
+    @users = @todo.users
 
     respond_to do |format|
       format.html # show.html.erb

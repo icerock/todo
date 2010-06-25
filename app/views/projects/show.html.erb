@@ -1,31 +1,45 @@
 <p>
-  <b>Name:</b>
+  <b>Project name:</b>
   <%=h @project.name %>
 </p>
-
 <p>
-  <b>Project notes:</b>
-  <%=h @project.project_notes %>
+  <b>Active:</b>
+  <%=h @project.active %>
 </p>
-Project tasks:
 <p>
-<table>
-  <tr>
-    <th>Task name</th>
-    <th>Task description</th>
-    <th></th>
-  </tr>
-  <% @tasks.each do |task| %>
-    <tr>
-    <td><%=h task.name %></td>
-    <td><%=h task.description %></td>
-    <td><%= link_to 'Show', task %></td>
-
-  </tr>
-  <% end %>
-</table>
+  <b>Billable:</b>
+  <%=h @project.billable %>
+</p>
+<p>
+  <b>Bill by:</b>
+  <%=h @project.bill_by %>
+</p>
+<p>
+  <b>Hourly rate:</b>
+  <%=h @project.hourly_rate %>
+</p>
+<p>
+  <b>Code:</b>
+  <%=h @project.code %>
+</p>
+<p>
+  <b>Notes:</b>
+  <%=h @project.notes %>
+</p>
+<p>
+  <b>Budget by:</b>
+  <%=h @project.budget_by %>
+</p>
+<p>
+  <b>Budget:</b>
+  <%=h @project.budget %>
+</p>
+<p>
+  <b>Fees:</b>
+  <%=h @project.fees %>
 </p>
 
 
-<%= link_to 'Edit project', edit_project_path(@project) %> |
+
+<%= link_to 'Edit', :controller => 'projects', :action => 'edit', :id => @project.id  %> |
 <%= link_to 'Back', projects_path %>
