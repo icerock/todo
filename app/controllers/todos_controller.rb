@@ -1,6 +1,10 @@
 class TodosController < ApplicationController
 
-  before_filter :login_required
+  before_filter :login_required, :set_pagetitle
+
+  def set_pagetitle
+    @pagetitle = 'TODO Items'
+  end
 
   def index
     @todos = Todo.find(:all)

@@ -10,6 +10,18 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
 
+  #HARVESTER OF SORROW :)
+
+  require "harvest.rb"
+
+  def harv_connect
+    @harvest = Harvest(:email      => "anthony.icerock@gmail.com",
+                       :password   => "Ice6667",
+                       :sub_domain => "bambu4a",
+                       :headers    => {"User-Agent" => "todo app"})
+
+  end
+
   
 
 end

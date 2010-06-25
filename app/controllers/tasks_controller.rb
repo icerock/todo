@@ -1,18 +1,11 @@
 class TasksController < ApplicationController
 
-  before_filter :login_required, :harv_connect
+  before_filter :login_required, :harv_connect, :set_pagetitle
   #before_filter :check_admin_role, :except => [:index, :show]
 
-  #HARVESTER OF SORROW :)
-
-  require "harvest.rb"
-
-  def harv_connect
-    @harvest = Harvest(:email      => "anthony.icerock@gmail.com",
-                       :password   => "Ice6667",
-                       :sub_domain => "bambu4a",
-                       :headers    => {"User-Agent" => "todo app"})
-
+  
+  def set_pagetitle
+    @pagetitle = 'Working with tasks'
   end
 
   def index
