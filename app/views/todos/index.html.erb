@@ -17,6 +17,7 @@
     <td><%= link_to 'Show', todo %></td>
     <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
     <td><%= link_to 'Destroy', todo, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Complete', todo_path(todo, :todo => {:completed => true}), :method => :put%></td>
   </tr>
 <% end %>
 </table>

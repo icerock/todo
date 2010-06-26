@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   map.my '/my', :controller => 'todos', :action => 'my'
 
-  map.root :controller => 'projects', :action => 'index'
+  map.root :controller => 'todos', :action => 'my'
 
   map.resources :users do |users|
     users.resources :roles

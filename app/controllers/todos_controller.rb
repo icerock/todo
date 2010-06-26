@@ -80,7 +80,7 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.update_attributes(params[:todo])
-        format.html { redirect_to(@todo, :notice => 'TODO was successfully updated.') }
+        format.html { redirect_to todos_path }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
