@@ -1,6 +1,6 @@
 == TO-DO project
 
-made as a test work, using library for working with getharvest.com by aiaio
+made as a test work, using patched library for working with getharvest.com by aiaio
 
 Adds 'todo items' to getharvest.com features, which are assigned to users registered in system
 
