@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
 
-  #HARVESTER OF SORROW :)
+  #HARVESTER OF SORROW
+  #store credentials for Harvest account here for now
+
 
   require "harvest.rb"
 

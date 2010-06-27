@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
   before_filter :login_required, :except => [:create, :show, :new]
 
-  #before_filter :check_admin_role, :exept => [:create, :show, :new]
 
   before_filter :set_pagetitle
 

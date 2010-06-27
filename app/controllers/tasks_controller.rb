@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   before_filter :login_required, :harv_connect, :set_pagetitle
-  #before_filter :check_admin_role, :except => [:index, :show]
+ 
 
   
   def set_pagetitle
@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     @tasks = @harvest.tasks.find(:all)
  
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @tasks.to_xml }
     end
   end
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     @task = @harvest.tasks.find(params[:id])
     @todos = Todo.find_all_by_task_id(params[:id])
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @task.to_xml }
     end
   end
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
 
   def update
     @task = @harvest.tasks.find(params[:id])
-    #@task = params[:harvest_resources_task]
+    
     @task.name = params[:harvest_resources_task][:name]
     @task.billable_by_default = params[:harvest_resources_task][:billable_by_default]
     @task.deactivated = params[:harvest_resources_task][:deactivated]
